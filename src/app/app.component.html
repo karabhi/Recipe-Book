@@ -4,8 +4,10 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <app-recipes *ngIf = "currentNavigationPage==='recipes'"></app-recipes>
-            <app-shopping-list *ngIf = "currentNavigationPage==='shoppingList'"></app-shopping-list>
+
+            <router-outlet></router-outlet>
+            <!-- <app-recipes *ngIf = "currentNavigationPage==='recipes'"></app-recipes>
+            <app-shopping-list *ngIf = "currentNavigationPage==='shoppingList'"></app-shopping-list> -->
         </div>
     </div>
 </div>
