@@ -6,11 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'my-app';
-  currentNavigationPage = "recipes";
-  
-  navigationPageChange(page : string){
-    // console.log(page)
-    this.currentNavigationPage = page
-  }
 }
