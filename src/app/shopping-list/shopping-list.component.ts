@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from './shopping-list.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-shopping-list',
@@ -8,18 +9,27 @@ import { ShoppingListService } from './shopping-list.service';
   styleUrls: ['./shopping-list.component.css'],
   providers : []
 })
-export class ShoppingListComponent implements OnInit {
-  public ingredients : Ingredient[]
+export class ShoppingListComponent implements OnInit,OnDestroy {
+  public ingredients : Ingredient[];
+  private subscription : Subscription;
 
   constructor(private shoppingListService : ShoppingListService) { }
 
   ngOnInit(): void {
     this.ingredients = this.shoppingListService.getIngredients();
-    this.shoppingListService.ingredientsChanged.subscribe(
+    this.subscription = this.shoppingListService.ingredientsChanged.subscribe(
       (ingredients : Ingredient[]) =>{
         this.ingredients = ingredients
       }
     )
+  }
+
+  onEditItem(index:number){
+    this.shoppingListService.startedEditing.next(index);
+  }
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
   }
 
 }
